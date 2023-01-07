@@ -45,13 +45,13 @@ Underfitting: Làm tệ với cả 2 tập dữ liệu  <br>
                 + Khác: 5%
         Tiền xử lý dữ liêu để làm gì? Thuận tiện trong việc lưu trữ, truy vấn
         Các mô hình học máy thường làm  việc với các mô hình dữ liệu có cấu trúc ma trận vector, chuỗi,....
-<h4>Source riêng https://users.soict.hust.edu.vn/khoattq/ml-dm-course/131404-IT3190/</h4>        
-<h4> Sách tham khảo
-
+<h4>Source riêng https://users.soict.hust.edu.vn/khoattq/ml-dm-course/131404-IT3190/ (web xấu vãi ò)</h4>        
+<h4> Sách tham khảo </h4>
+<p>
 [1] Tom Mitchell. Machine Learning. McGraw-Hill, 1997.
 
 [2] Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. MIT press, 2016.
 
 [3] Jiawei Han, Micheline Kamber, Jian Pei. Data Mining: Concepts and Techniques (3rd Edition). Morgan Kaufmann, 2011.
 
-[4] Trevor Hastie,‎ Robert Tibshirani,‎ Jerome Friedman. The Elements of Statistical Learning: Data Mining, Inference, and Prediction (12th Edition). Springer, 201</h4>
+[4] Trevor Hastie,‎ Robert Tibshirani,‎ Jerome Friedman. The Elements of Statistical Learning: Data Mining, Inference, and Prediction (12th Edition). Springer, 201</p>
