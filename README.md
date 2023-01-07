@@ -36,15 +36,15 @@ Underfitting: Làm tệ với cả 2 tập dữ liệu  <br>
         + Regularization là 1 mô hình giúp chúng ta huấn luyện được mô hình tốt và tránh được hiện tượng overfitting <br>
 
 <h4>Tiền xử lý dữ liệu</h4>
-        Thời gian dành cho phân tích dữ liệu
-                + Thu thập dữ liệu: 19%
-                + Thu xếp và làm sạch dữ liệu: 60%
-                + Tạo tập dữ liệu huấn luyện: 3%
-                + Khai phá: 9%
-                + Cải thiện thuật toán: 4%
-                + Khác: 5%
-        Tiền xử lý dữ liêu để làm gì? Thuận tiện trong việc lưu trữ, truy vấn
-        Các mô hình học máy thường làm  việc với các mô hình dữ liệu có cấu trúc ma trận vector, chuỗi,....
+        Thời gian dành cho phân tích dữ liệu <br>
+                + Thu thập dữ liệu: 19% <br>
+                + Thu xếp và làm sạch dữ liệu: 60% <br>
+                + Tạo tập dữ liệu huấn luyện: 3% <br>
+                + Khai phá: 9% <br>
+                + Cải thiện thuật toán: 4% <br>
+                + Khác: 5% <br>
+        Tiền xử lý dữ liêu để làm gì? Thuận tiện trong việc lưu trữ, truy vấn <br>
+        Các mô hình học máy thường làm  việc với các mô hình dữ liệu có cấu trúc ma trận vector, chuỗi,.... <br>
 <h4>Source riêng https://users.soict.hust.edu.vn/khoattq/ml-dm-course/131404-IT3190/ (web xấu vãi ò)</h4>        
 <h4> Sách tham khảo </h4>
 <p>
