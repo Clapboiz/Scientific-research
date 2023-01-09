@@ -11,6 +11,7 @@ Học phần này nhằm cung cấp cho sinh viên các kiến thức cơ bản 
 <h5>    Numpy</h5>
 <h5>    Matplotlib</h5>
 <h5>    Pandas</h5>
+<h5>pip install -U scikit-learn</h5>
 
 <h4>Học có giám sát và học không giám sát</h4>
 + Học có giám sát là bài toán hồi quy
