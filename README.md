@@ -6,9 +6,12 @@
 Học phần này nhằm cung cấp cho sinh viên các kiến thức cơ bản về học máy và khai phá dữ liệu. Học phần bao gồm các khái niệm căn bản, các bài toán học cơ bản, quy trình xây dựng hệ thống dựa trên học máy và khai phá dữ liệu, các mô hình cơ bản (đôi khi chuyên sâu). Đó là những khối kiến thức cần thiết nhất khi người học muốn dùng Học máy (hay Khai phá dữ liệu) vào các ứng dụng trong thực tế. Học phần cũng giới thiệu vài ứng dụng điển hình của học máy trong thực tế, các công cụ hoặc thư viện hữu ích.
         </p>
 <h3>
-        Library:
+        Library and Tool:
 </h3>
 <h5>    Numpy</h5>
 <h5>    Matplotlib</h5>
 <h5>    Pandas</h5>
 <h5>pip install -U scikit-learn</h5>
+<h5>Pycharm</h5>
+<h5>Anaconda</h5>
+<h5>python-mnist(download: t10k-images-idx3-ubyte.gz, t10k-labels-idx1-ubyte.gz thì thư viện python-mnist mới sử dụng được)</h5>
