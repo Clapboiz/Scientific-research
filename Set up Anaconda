@@ -7,3 +7,6 @@ Và bấm enter, yes, lưu ý canh bởi vì sẽ tự động skip không tải
 => Đây là dấu hiệu chứng tỏ ta đã miss "Yes" của conda innit ??
   Khắc phục bằng cách xóa thư mục anaconda và quay lại bước bash :"))
 link docs install: https://docs.anaconda.com/anaconda/install/linux/
+
+
+Muốn vào anaconda thì bật terminal và gõ: "anaconda-navigator" thì giao diễn sẽ được mở
