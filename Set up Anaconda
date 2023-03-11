@@ -1,0 +1,9 @@
+Truy cập andaconda và tải bản linux
+  link: https://www.anaconda.com/products/distribution#Downloads
+Sau khi tải xong thì 
+ bash ~/Downloads/An + tab để ra như dưới bởi vì chưa biết đc tên ...
+      => bash ~/Downloads/Anaconda3-2020.05-Linux-x86_64.
+Và bấm enter, yes, lưu ý canh bởi vì sẽ tự động skip không tải nếu ta không bấm yes kịp lúc và nó sẽ hiện lỗi như này "Conda command not found"
+=> Đây là dấu hiệu chứng tỏ ta đã miss "Yes" của conda innit ??
+  Khắc phục bằng cách xóa thư mục anaconda và quay lại bước bash :"))
+link docs install: https://docs.anaconda.com/anaconda/install/linux/
