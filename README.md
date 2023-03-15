@@ -14,4 +14,11 @@ Học phần này nhằm cung cấp cho sinh viên các kiến thức cơ bản 
 <h5>pip install -U scikit-learn</h5>
 <h5>Pycharm</h5>
 <h5>Anaconda</h5>
-<h5>python-mnist(download: t10k-images-idx3-ubyte.gz, t10k-labels-idx1-ubyte.gz thì thư viện python-mnist mới sử dụng được)</h5>
+<h5>Python-mnist(download: t10k-images-idx3-ubyte.gz, t10k-labels-idx1-ubyte.gz thì thư viện python-mnist mới sử dụng được)</h5>
+<h1>#2 DL</h1>
+<h3>
+        Library and Tool:
+</h3>
+<h5>Tensorflow, "pip install tensorflow")</h5>
+<h5>pip install jupyter_contrib_nbextensions</h5>
+<h5>jupyter contrib nbextension install --user</h5>

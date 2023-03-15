@@ -1,0 +1,30 @@
+Shift + Enter : Chạy cell hiện tại và chuyển xuống cell tiếp theo,
+
+Ctrl + Enter : Chạy cell hiện tại và giữ nguyên ở cell hiện tại.
+
+A : Tạo 1 cell ở trên cell hiện tại.
+
+B : Tạo 1 cell ở dưới cell hiện tại.
+
+C : copy cell.
+
+V : paste cell
+
+D x 2 : Xoá cell đang chọn.
+
+Shift + M : Nối các cell được chọn với nhau nếu chỉ có 1 cell thì sẽ nối cell đó với cell bên dưới.
+
+I x 2 : Interrupt Kernel.
+
+0 x 2 : Restart Kernel
+
+Y : chuyển sang cell mode.
+
+M : chuyển sang markdown mode.
+
+Ngoài ra có thể ấn H hoặc bảng command ( Command Palette ) -Ctrl + Shift + P để check các câu lệnh short-cut.
+
+Import nhanh tất cả thư viện mà bạn cần( template ) bằng cách sử dụng ; . Ví dụ tôi hay sử dụng numpy , pytorch thì khi tôi gõ ;imp sẽ ra như sau :
+import numpy as np
+import torch
+import torch.nn as nn
