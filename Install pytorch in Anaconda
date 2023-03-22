@@ -1,0 +1,22 @@
+Sử dụng lệnh trên để dowload
+conda install pytorch torchvision torchaudio cpuonly -c pytorch       
+
+Lưu ý trên máy ảo không dùng được gpu nên không chọn cuda, mà chỉ chọn cpu
+Nếu cài bị lỗi thì:
+  Xem môi trường đã được activate hay chưa?, nếu đã activate thì vui lòng remove env đó
+  
+    conda remove --name myenv --all
+
+  Sau đó sử dụng các câu lệnh sau và làm lại thì sẽ được.
+  
+    conda create --name myenv
+    conda activate myenv
+    conda install pytorch torchvision torchaudio cpuonly -c pytorch
+  
+  Nếu không được nữa thì vui lòng update conda
+    conda update conda
+  
+  
+  
+  
+Và sau cùng nếu vẫn lỗi thì tắt máy đi ngủ =))
