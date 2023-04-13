@@ -11,6 +11,12 @@ Mỗi hidden layer được gọi là fully connected layer, tên gọi theo đ�
 layer được kết nối với tất cả các node trong layer trước. Cả mô hình được gọi là fully connected
 neural network (FCN).
 
+Về cơ bản thiết kế của một mạng nơ ron tích chập 2 chiều có dạng như sau:
+
+INPUT -> [[CONV -> RELU]*N -> POOL?]*M -> [FC -> RELU]*K -> FC
+
+Các kí hiệu []N, []M hoặc []*K ám chỉ các khối bên trong [] có thể lặp lại nhiều lần liên tiếp nhau. M, K là số lần lặp lại. Kí hiệu -> đại diện cho các tầng liền kề nhau mà tầng đứng trước sẽ làm đầu vào cho tầng đứng sau. Dấu ? sau POOL để thể hiện tầng POOL có thể có hoặc không sau các khối tích chập.
+
 ![image](https://user-images.githubusercontent.com/112185647/231429916-ca4ab3fe-02c8-4d7d-93ee-411bbf40f611.png)
 
 ## Quy tắc, convolutional layer?
@@ -44,3 +50,41 @@ Sau khi ảnh được truyền qua nhiều convolutional layer và pooling laye
 Sau đó ta dùng các fully connected layer để kết hợp các đặc điểm của ảnh để ra được output của model.
 
          * 1 số pre-trained models là VGG 16, Resnet, Inception, ....
+
+Lưu ý:
+
+    Cả tensorflow và keras đều có BatchNormalization, điểm khác nhau giữa 2 cái này là:
+          + tensorflow thì nhiều tham số truyền vào hơn keras.
+          + Keras hỗ trợ cho việc đồng bộ hóa BatchNormalization giữa các thiết bị (devices) khác nhau, còn tensorflow thì không.
+          + keras.layers.BatchNormalization()     #keras
+          + tf.keras.layers.BatchNormalization()  #tensorflow
+          + Import 2 thư viện này:
+                 - from tensorflow.keras.layers import BatchNormalization
+                 - from keras.layers import BatchNormalization
+    Lớp BatchNormalization thường được đặt sau một lớp Convolutional hoặc Dense và trước một hàm kích hoạt (activation function) trong mô hình
+    Khi đã thực hiện chuẩn hóa bằng cách /255 trước đó thì có thể không cần BatchNormalization nữa
+
+## Gan
+GAN là viết tắt “generative adversarial network”, hướng tới việc sinh ra dữ liệu mới sau quá trình học. GAN có thể tự sinh ra một khuôn mặt mới, một con người, một đoạn văn, chữ viết, bản nhạc giao hưởng hay những thứ tương tự thế. Thế làm cách nào để GAN học và làm được điều đó, chúng ta cần phải điểm qua một vài khái niệm.
+
+Các mô hình Machine Learning có thể được phân chia thành lớp mô hình phân biệt (Discriminative) và mô hình sinh (Generative). Đây chỉ là một cách phân chia trong vô số các cách phân chia khác như: mô hình học có giám sát (supervised learning)/học không giám sát (unsupervised learning), mô hình tham số (parametric)/mô hình phi tham số (non parametric), mô hình đồ thị (graphic)/mô hình phi đồ thị (non-graphic),….
+
+![image](https://user-images.githubusercontent.com/112185647/231714743-b17ef216-a349-4d69-aaeb-a435c606edef.png)
+
+Generator: Học cách sinh ra dữ liệu giả để lừa mô hình Discriminator. Để có thể đánh lừa được Discriminator thì đòi hỏi mô hình sinh ra output phải thực sự tốt. Do đó chất lượng ảnh phải càng như thật càng tốt.
+
+Discriminator: Học cách phân biệt giữa dữ liệu giả được sinh từ mô hình Generator với dữ liệu thật. Discriminator như một giáo viên chấm điểm cho Generator biết cách nó sinh dữ liệu đã đủ tinh xảo để qua mặt được Discriminator chưa và nếu chưa thì Generator cần tiếp tục phải học để tạo ra ảnh thật hơn. Đồng thời Discriminator cũng phải cải thiện khả năng phân biệt của mình vì chất lượng ảnh được tạo ra từ Generator càng ngày càng giống thật hơn. Thông qua quá trình huấn luyện thì cả Generator và Discriminator cùng cải thiện được khả năng của mình.
+
+![image](https://user-images.githubusercontent.com/112185647/231713133-21131383-1d69-4e2e-b1f2-6a2635e71229.png)
+
+Generator và Discriminator tương tự như hai người chơi trong bài toán zero-sum game trong lý thuyết trò chơi. Ở trò chơi này thì hai người chơi xung đột lợi ích. Hay nói cách khác, thiệt hại của người này chính là lợi ích của người kia. Mô hình Generator tạo ra dữ liệu giả tốt hơn sẽ làm cho Discriminator phân biệt khó hơn và khi Discriminator phân biệt tốt hơn thì Generator cần phải tạo ra ảnh giống thật hơn để qua mặt Discriminator. Trong zero-sum game, người chơi sẽ có chiến lược riêng của mình, đối với Generator thì đó là sinh ra ảnh giống thật và Discriminator là phân loại ảnh thật/giả. Sau các bước ra quyết định của mỗi người chơi thì zero-sum game sẽ đạt được cân bằng Nash tại điểm cân bằng (Equilibrium Point).
+### Generator
+![image](https://user-images.githubusercontent.com/112185647/231719150-0fdc00c5-f581-4e4a-819d-ec9ad1d5c60c.png)
+
+Generator về bản chất là một mô hình sinh nhận đầu vào là một tập hợp các véc tơ nhiễu được khởi tạo ngẫu nhiên theo phân phối Gaussian. Ở một số lớp mô hình GAN tiên tiến hơn, input có thể làm một dữ liệu chẳng hạn như bức ảnh, đoạn văn bản hoặc đoạn âm thanh. Nhưng ở đây với mục đích làm quen và tìm hiểu GAN đầu vào được giả sử là véc tơ nhiễu như trong bài báo gốc Generative Adversarial Nets của tác giả Ian J.Goodfellow.
+
+Từ tập véc tơ đầu vào ngẫu nhiên, mô hình generator là một mạng học sâu có tác dụng biến đổi ra bức ảnh giả ở output. Bức ảnh giả này sẽ được sử dụng làm đầu vào cho kiến trúc Discriminator.
+### Discriminator
+![image](https://user-images.githubusercontent.com/112185647/231719982-4474e52a-7fb4-40e2-b502-833d9094dc0c.png)
+
+Mô hình Discriminator sẽ có tác dụng phân biệt ảnh input là thật hay giả. Nhãn của mô hình sẽ là thật nếu ảnh đầu vào của Discriminator được lấy tập mẫu huấn luyện và giả nếu được lấy từ output của mô hình Generator. Về bản chất đây là một bài toán phân loại nhị phân (binary classification) thông thường. Để tính phân phối xác suất cho output cho Discriminator chúng ta sử dụng hàm sigmoid.
