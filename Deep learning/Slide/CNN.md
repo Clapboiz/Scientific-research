@@ -88,3 +88,34 @@ Từ tập véc tơ đầu vào ngẫu nhiên, mô hình generator là một m�
 ![image](https://user-images.githubusercontent.com/112185647/231719982-4474e52a-7fb4-40e2-b502-833d9094dc0c.png)
 
 Mô hình Discriminator sẽ có tác dụng phân biệt ảnh input là thật hay giả. Nhãn của mô hình sẽ là thật nếu ảnh đầu vào của Discriminator được lấy tập mẫu huấn luyện và giả nếu được lấy từ output của mô hình Generator. Về bản chất đây là một bài toán phân loại nhị phân (binary classification) thông thường. Để tính phân phối xác suất cho output cho Discriminator chúng ta sử dụng hàm sigmoid.
+
+## Imagedatagenerator 
+Hiện nay trong deep learning thì vấn đề dữ liệu có vai trò rất quan trọng. Chính vì vậy có những lĩnh vực có ít dữ liệu để cho việc train model thì rất khó để tạo ra được kết quả tốt trong việc dự đoán. Do đó người ta cần đến một kỹ thuật gọi là tăng cường dữ liệu (data augmentation) để phục vụ cho việc nếu bạn có ít dữ liệu, thì bạn vẫn có thể tạo ra được nhiều dữ liệu hơn dựa trên những dữ liệu bạn đã có. Ví dụ như hình dưới, đó là các hình được tạo ra thêm từ một ảnh gốc ban đầu.
+
+       + Original (Ảnh gốc): dĩ nhiên rồi, bao giờ mình cũng có ảnh gốc
+       
+       + Flip (Lật): lật theo chiều dọc, ngang miễn sao ý nghĩa của ảnh (label) được giữ nguyên hoặc suy ra được. Ví dụ nhận dạng quả bóng tròn, thì mình lật kiểu gì cũng ra quả bóng. Còn với nhận dạng chữ viết tay, lật số 8 vẫn là 8, nhưng 6 sẽ thành 9 (theo chiều ngang) và không ra số gì theo chiều dọc. Còn nhận dạng ảnh y tế thì việc bị lật trên xuống dưới là không bao giờ sảy ra ở ảnh thực tế --> không nên lật làm gì
+       
+       + Random crop (Cắt ngẫu nhiên): cắt ngẫu nhiên một phần của bức ảnh. Lưu ý là khi cắt phải giữ thành phần chính của bức ảnh mà ta quan tâm. Như ở nhận diện vật thể, nếu ảnh được cắt không có vật thể, vậy giá trị nhãn là không chính xác.
+       
+       + Color shift (Chuyển đổi màu): Chuyển đổi màu của bức ảnh bằng cách thêm giá trị vào 3 kênh màu RGB. Việc này liên quan tới ảnh chụp đôi khi bị nhiễu --> màu bị ảnh hưởng.
+       
+       + Noise addition (Thêm nhiễu): Thêm nhiễu vào bức ảnh. Nhiễu thì có nhiều loại như nhiễu ngẫu nhiên, nhiễu có mẫu, nhiễu cộng, nhiễu nhân, nhiễu do nén ảnh, nhiễu mờ do chụp không lấy nét, nhiễu mờ do chuyển động có thể kể hết cả ngày.
+       
+       + Information loss (Mất thông tin): Một phần của bức hình bị mất. Có thể minh họa trường hợp bị che khuất.
+       
+       + Constrast change (Đổi độ tương phản): thay độ tương phản của bức hình, độ bão hòa
+       
+       + Geometry based: Đủ các thể loại xoay, lật, scale, padding, bóp hình, biến dạng hình,
+       
+       + Color based: giống như trên, chi tiết hơn chia làm (i) tăng độ sắc nét, (ii) tăng độ sáng, (iii) tăng độ tương phản hay (iv) đổi sang ảnh negative - âm bản.
+       
+       + Noise/occlusion: Chi tiết hơn các loại nhiễu, như mình kể trên còn nhiều lắm. kể hết rụng răng.
+       
+       + Whether: thêm tác dụng cảu thời tiết như mưa, tuyết, sương mờ,
+
+![image](https://user-images.githubusercontent.com/112185647/231939667-8644e337-4ebb-4857-ab57-d97f99768b0e.png)
+
+     * Lưu ý: Cả Gan và Imagedatagenerator thì nếu dữ liệu đủ lớn thì có thể không cần dùng 2 phương pháp này, còn dữ liệu ít thì nên dùng để tăng hiệu suất cho mô hình.
+              Việc sử dụng data aumgentation nên thực hiện ngẫu nhiên trong quá trình huấn luyện. Và việc dùng GAN là tạo dữ liệu ko có trước, có thể có tác dụng phụ.
+              
