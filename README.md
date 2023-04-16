@@ -1,4 +1,7 @@
 # Scientific-research
+
+<h4> This is my project, if you find errors or suggestions, please contact me through the information in this: " https://github.com/Clapboiz ". Thank you so much. </h4>
+
 <h1>#1 ML</h1>
         <p>
                 Học máy (Machine Learning) đã và đang giúp con người tạo ra những sản phẩm vô cùng hữu ích, thay đổi cuộc sống của con người. Nó có thể giúp tạo ra những hệ thống máy móc mà có khả năng phán đoán (dự báo) một cách chính xác và khai phá tri thức mới từ một lượng dữ liệu lớn. Những hệ thống đó có khả năng tự học từ dữ liệu, mà ít cần hướng dẫn của con người.
