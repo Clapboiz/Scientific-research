@@ -1,151 +1,65 @@
-import tensorflow as tf
-from tensorflow.keras.datasets import cifar10
-import keras
+#Import Lib
+import pandas as pd
 import numpy as np
 
-from keras.preprocessing.image import ImageDataGenerator
-from keras.models import Sequential
-from keras.layers import Conv2D, MaxPool2D, Dense, Flatten, Dropout
-from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.decomposition import PCA
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score, precision_score, confusion_matrix, recall_score, f1_score
+
+from tensorflow.keras.layers import Dense, LSTM, RNN, Embedding, Dropout
+from tensorflow.keras.models import Sequential
+
 from keras.backend import clear_session
 
-import matplotlib.pyplot as plt    
+import os
 
-from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
-from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import KFold
+df = pd.read_csv(r'D:/Users/Desktop/Scientific-research/Deep learning/Data/Android-malware/drebin-215-dataset-5560malware-9476-benign.csv')
+#Pretrain dataset
+def preprocess(dataframe):
+    dataframe.loc[dataframe['class'] == "B", "class"] = 0
+    dataframe.loc[dataframe['class'] == "S", "class"] = 1
 
-from keras.layers import BatchNormalization
-import numpy as np
-from sklearn.model_selection import train_test_split
+    return dataframe
 
-# Load data
-(x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
+scaled_train = preprocess(df)
 
-# Split data into train and validation sets
-x_train, x_valid, y_train, y_valid = train_test_split(x_train, y_train,
-                                                      test_size=0.1,
-                                                      random_state=40)
+X = scaled_train.drop(['class'], axis=1).values
+y = scaled_train['class'].values
 
-# Print shape of each set
-print("Shape of training set:", x_train.shape)
-print("Shape of validation set:", x_valid.shape)
-print("Shape of test set:", x_test.shape)
-import matplotlib.pyplot as plt
+# Replace '?' with NaN
+df.replace('?', np.nan, inplace=True)
 
-for i in range(20):
-    #define subplot
-    plt.subplot(5, 5, i+1)
-    #plot pixel data
-    plt.imshow(x_train[i], cmap=plt.cm.binary)
-#diplay the images
-plt.show()
-import keras
-from keras.utils import to_categorical
+# Convert columns to numeric data type
+df = df.apply(pd.to_numeric)
 
-#set number of categories
-num_category = 10
-# convert class vectors to binary class matrices
-y_train_ = keras.utils.to_categorical(y_train, num_category)
-y_test_ = keras.utils.to_categorical(y_test, num_category)
-y_valid_ = keras.utils.to_categorical(y_valid, num_category)
-#dividing image pixel by 255 so that pixel comes in range 0 to 1...
-x_test=x_test/255.0
-x_train=x_train/255.0
-x_valid=x_valid/255.0
-# create model
+# Replace NaN values with mean of column
+df.fillna(df.mean(), inplace=True)
+
+# Convert labels to integers
+df['class'] = df['class'].astype('category').cat.codes
+
+# Convert labels to integers
+y = y.astype('int')
+
+#Split data into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+y_train = y_train.reshape((-1,1))
+y_test = y_test.reshape((-1,1))
+
 model = Sequential()
+model.add(LSTM(units=32, input_shape=(X_train.shape[1], 1)))
+model.add(Dropout(0.3))
+model.add(Dense(units=1, activation='sigmoid'))
 
-model.add(BatchNormalization())
+model.summary()
 
-#16 is filters
-model.add(Conv2D(32, input_shape = (32, 32, 3),
-                 kernel_size = (3, 3),
-                 kernel_initializer = "normal", 
-                 padding = 'same',
-                 activation = 'relu'))
+# Compile models
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-model.add(MaxPool2D(pool_size = (2, 2), strides = 2))
-
-model.add(Dropout(0.25))
-
-model.add(BatchNormalization())
-
-model.add(Conv2D(64, 
-                 kernel_size = (3, 3),
-                 kernel_initializer = "normal",
-                 padding = 'same',
-                 activation = 'relu'))       
-
-model.add(MaxPool2D(pool_size = (2, 2), strides = 2))
-
-model.add(Dropout(0.25))
-
-model.add(BatchNormalization())
-
-model.add(Conv2D(128, 
-                kernel_size = (3, 3),
-                padding = "same",
-                kernel_initializer = "normal",
-                activation = "relu"))    
-
-model.add(MaxPool2D(pool_size = (2, 2), strides = 2))
-
-model.add(Dropout(0.25))
-
-model.add(Conv2D(256, 
-                kernel_size = (3, 3),
-                padding = "same",
-                kernel_initializer = "normal",
-                activation = "relu"))    
-
-model.add(MaxPool2D(pool_size = (2, 2), strides = 2))
-
-model.add(Dropout(0.25))
-
-model.add(Conv2D(512, 
-                kernel_size = (3, 3),
-                padding = "same",
-                kernel_initializer = "normal",
-                activation = "relu"))    
-
-
-model.add(Flatten())
-
-model.add(Dense(512, activation = 'relu'))
-model.add(Dense(256, activation = 'relu'))
-model.add(Dense(128, activation = 'relu'))
-
-model.add(Dropout(0.5))
-
-model.add(Dense(10, activation = 'softmax'))
-
-#compile model
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-num_fold = 1
-
-qtd_fods = 2
-
-caminho_salvar_modelo = "models/"
-monitor = EarlyStopping(monitor = "val_loss", min_delta = 1e-1, patience = 5, verbose = 1, mode  ="auto")
-
-folds  = KFold(n_splits = qtd_fods, shuffle = True, random_state = 1).split(x_train, y_train)
-
-argumentation = ImageDataGenerator(rotation_range=20,
-                                   zoom_range=0.15,
-                                   width_shift_range=0.2, 
-                                   height_shift_range=0.2,
-                                   shear_range=0.15,
-                                   horizontal_flip=True, 
-                                   fill_mode="nearest")
-# train model
-Score = model.fit(x_train, y_train_, epochs=64, batch_size=256, verbose=1,
-                  validation_data=(x_test, y_test_))
-# Metrics
-y_test_predictions = np.argmax(model.predict(x_test), axis=-1)
-sc_rc = recall_score(y_test, y_test_predictions, average='weighted')
-sc_f1 = f1_score(y_test, y_test_predictions, average='weighted')
-
-print("=========== METRICS =============")
-print("Recall score: %.2f" % (sc_rc * 100))
-print("F1 score: %.2f" % (sc_f1 * 100))
+# Fit model
+history = model.fit(X_train.reshape((X_train.shape[0], X_train.shape[1], 1)), y_train, epochs=10, batch_size=32,
+                    validation_data=(X_test.reshape((X_test.shape[0], X_test.shape[1], 1)), y_test))
