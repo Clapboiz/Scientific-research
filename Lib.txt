@@ -1,8 +1,3 @@
-pytorch
-scikit-learn
-keras
-numpy
-pandas
-matplotlib
-opencv-python
-seaborn
+version https://git-lfs.github.com/spec/v1
+oid sha256:e2d4673228d955c01a4cccbfe56add071997a97eee9eea7c645e58b0623e1918
+size 79
