@@ -1,8 +1,8 @@
+# standardized data
+
 Scikit-learn cung cấp một loạt các phương pháp chuẩn hóa dữ liệu thông qua module sklearn.preprocessing. 
 
-```
-Dưới đây là một số phương pháp chuẩn hóa dữ liệu phổ biến:
-```
+* Dưới đây là một số phương pháp chuẩn hóa dữ liệu phổ biến:
 
 ```
 normalize: Chuẩn hóa dữ liệu bằng cách sử dụng một chuẩn cụ thể, như L1, L2 hoặc Max.
