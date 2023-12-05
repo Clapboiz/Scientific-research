@@ -51,3 +51,23 @@ Tuy nhiên, mô hình pentest ids cũng có một số hạn chế:
   * Mặc dù có những hạn chế, mô hình pentest ids vẫn là một công cụ hữu ích cho các chuyên gia pentest.
 
 #### => Tùy vào từng mô hình sẽ có những actions, state, reward khác nhau 
+
+### Trong học máy tăng cường (RL), có hai loại không gian chính liên quan đến actions, observations:
+
+**Không gian Hành động (Action Space):**
+
+  * Rời rạc (Discrete): Đây là trường hợp khi tập hợp các hành động có thể đếm được và hữu hạn. Ví dụ, các hành động có thể là các bước di chuyển cụ thể, lựa chọn từ một tập hợp hữu hạn các hành động, vv.
+
+  * Liên tục (Continuous): Đây là khi không gian hành động là một khoảng liên tục. Ví dụ, có thể là các giá trị liên tục như động lực lái xe, mức độ xoay của động cơ, vv.
+
+**Không gian Quan sát (Observation Space):**
+
+  * Rời rạc (Discrete): Các trạng thái quan sát được đại diện bằng các giá trị rời rạc. Ví dụ, trạng thái của một trò chơi trên bảng có thể được biểu diễn bằng các ô vuông trên bảng.
+  * Liên tục (Continuous): Các trạng thái quan sát được biểu diễn bằng các giá trị liên tục. Ví dụ, các thông số như tốc độ, vị trí, mức năng lượng, vv.
+
+**_Thư viện Gym của OpenAI hỗ trợ cả hai loại không gian này. Cụ thể, Gym cung cấp các lớp như Discrete và Box để định nghĩa không gian hành động và quan sát tương ứng._**
+
+```
+Discrete: không liên tục
+Box: Liên tục
+```
